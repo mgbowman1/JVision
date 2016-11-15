@@ -17,6 +17,7 @@ public class Node {
     private int yAreaSize; //graphical y-size of background panel
     private String privacy; //public, private or protected
     private String returnValue; //return type for a method
+    private Node next;
     
     /**
      * Creates an empty node where all instance variables contain an empty version of themselves
@@ -35,6 +36,7 @@ public class Node {
         yAreaSize = 0;
         privacy = "";
         returnValue = "";
+        next = null;
     }
     
     /**
@@ -53,8 +55,9 @@ public class Node {
      * @param yAreaSize an {@code int} that gives the graphical vertical size of the background layer attached to this {@code Node}
      * @param privacy a {@code String} which gives the privacy setting {private, public or protected}
      * @param returnValue a {@code String} which tells the return type of this {@code Node}
+     * @param next a {@code Node} which is the next instruction to be computed
      */
-    public Node(String name, String type, ArrayList<Node> arguments, ArrayList<Node> parents, ArrayList<Node> children, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String privacy, String returnValue) {
+    public Node(String name, String type, ArrayList<Node> arguments, ArrayList<Node> parents, ArrayList<Node> children, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String privacy, String returnValue, Node next) {
         this.name = name;
         this.type = type;
         this.arguments = arguments;
@@ -68,6 +71,7 @@ public class Node {
         this.yAreaSize = yAreaSize;
         this.privacy = privacy;
         this.returnValue = returnValue;
+        this.next = next;
     }
     
     public void setName(String n) {
@@ -122,6 +126,10 @@ public class Node {
         returnValue = r;
     }
     
+    public void setNext(Node n) {
+        next = n;
+    }
+    
     public String getName() {
         return name;
     }
@@ -172,6 +180,10 @@ public class Node {
     
     public String getReturnValue() {
         return returnValue;
+    }
+    
+    public Node getNext() {
+        return next;
     }
     
 }
