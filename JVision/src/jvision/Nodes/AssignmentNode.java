@@ -7,6 +7,14 @@ import jvision.Exceptions.NodeDoesNotExistException;
 import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 
+/**
+ *
+ * @author Michael
+ * @see Node
+ * 
+ * This Node performs assignments of some kind of other Node to a variable.
+ * It can also perform those assignments to multiple variables.
+ */
 public class AssignmentNode extends Node {
 
     public AssignmentNode(VariableNode leftSide, NodeList<VariableNode> middle, Node rightSide, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {

@@ -2,6 +2,12 @@ package jvision;
 
 import jvision.Nodes.Node;
 
+/**
+ *
+ * @author Michael
+ * 
+ * This class is simply used for running an interpreter on a given list of Nodes.
+ */
 public class Interpreter {
 
     public Interpreter(NodeList<Node> masterList) {
@@ -21,7 +27,7 @@ public class Interpreter {
         return finished;
     }
     
-    public void nextInstruction() {
+    public void nextInstruction() { //execute the next Node/instruction in the code
         Node temp = current.execute();
         while (current.isExecuted()) {
             while (temp == null) {

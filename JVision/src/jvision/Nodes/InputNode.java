@@ -2,6 +2,14 @@ package jvision.Nodes;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author Michael
+ * @see Node
+ * @see OutputNode
+ * 
+ * This Node is used for all input operations from console to file and so on.
+ */
 public class InputNode extends Node {
 
     public InputNode(Scanner in, String filePath, boolean console, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {

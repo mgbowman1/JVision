@@ -4,7 +4,13 @@ import jvision.Exceptions.NodeDoesNotExistException;
 import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 
-
+/**
+ *
+ * @author Michael
+ * @see Node
+ * 
+ * This Node is used to import all classes and methods etc. from the given import location.
+ */
 public class ImportNode extends Node {
 
     public ImportNode(ClassNode imported, String path, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {
@@ -31,7 +37,7 @@ public class ImportNode extends Node {
     
     @Override
     public Node execute() {
-        
+        //this is where it will import all of the stuff
     }
     
     @Override

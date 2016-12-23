@@ -7,7 +7,13 @@ import jvision.Exceptions.NodeDoesNotExistException;
 import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 
-
+/**
+ *
+ * @author Michael
+ * @see Node
+ * 
+ * This Node does simple comparison boolean operations and is usually part of a LogicNode.
+ */
 public class BooleanNode extends Node {
 
     public BooleanNode(Node leftSide, Node rightSide, String operator, boolean not, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {
@@ -39,7 +45,7 @@ public class BooleanNode extends Node {
         return operator;
     }
 
-    public void setOperator(String operator) {
+    public void setOperator(String operator) { //ensure that the operator is of an appropriate type
         if (operator.equals("==") || operator.equals(">=") || operator.equals("<=") || operator.equals(">") || operator.equals("<")) this.operator = operator;
     }
     

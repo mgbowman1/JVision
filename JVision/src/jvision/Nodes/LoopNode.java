@@ -4,6 +4,13 @@ import jvision.Exceptions.NodeDoesNotExistException;
 import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 
+/**
+ *
+ * @author Michael
+ * @see Node
+ * 
+ * This Node is used for all loops.
+ */
 public class LoopNode extends Node {
 
     public LoopNode(AssignmentNode initializer, LogicNode condition, Node finisher, boolean conditionBefore, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {
@@ -49,7 +56,7 @@ public class LoopNode extends Node {
     @Override
     public Node execute() {
         super.execute();
-        if (initializer != null && !initializer.isExecuted()) return initializer;
+        if (initializer != null && !initializer.isExecuted()) return initializer; //ensure that the initializer and condition are executed.  If so then execute the loop.  If that's done then execute the finishes and the condition if it should be done after the loop.
         else if (!condition.isExecuted() && conditionBefore) return condition;
         else if (super.getChildNode() != null && !super.getChildNode().isExecuted()) return super.getChildNode();
         else if (finisher != null && !finisher.isExecuted()) return finisher;

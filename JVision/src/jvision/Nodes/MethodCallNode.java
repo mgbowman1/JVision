@@ -8,6 +8,14 @@ import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 import jvision.NodeListConverter;
 
+/**
+ *
+ * @author Michael
+ * @see Node
+ * @see MethodNode
+ * 
+ * This Node is used for every time a method is called.
+ */
 public class MethodCallNode extends Node {
 
     public MethodCallNode(MethodNode method, NodeList<Node> arguments, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {
@@ -28,12 +36,12 @@ public class MethodCallNode extends Node {
     public Node execute() {
         super.execute();
         Node current = arguments.get(0);
-        while (current != null) {
+        while (current != null) { //ensure that all arguments are executed and then converted into VariableNodes
             if (!(current instanceof VariableNode)) {
                 if (!current.isExecuted() && !(current instanceof ClassNode)) return current;
                 else {
                     try {
-                        current = super.getVariable(current);
+                        current = super.getVariable(current); this is wrong //this is an error that needs to be fixed so I purposely made it an error
                     } catch (BadArgumentNodeException | CloneNotSupportedException ex) {
                         Logger.getLogger(MethodCallNode.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -41,8 +49,8 @@ public class MethodCallNode extends Node {
             }
         }
         try {
-            method.setVars(method.arguments, new NodeListConverter<VariableNode>().convert(arguments, VariableNode.class));
-        } catch (NullNodeException | BadArgumentNodeException ex) {
+            method.setVars(method.arguments, new NodeListConverter<VariableNode>().convert(arguments, VariableNode.class)); //ensure that the variables of the given method are set correctly
+        } catch (NullNodeException | BadArgumentNodeException | NodeDoesNotExistException ex) {
             Logger.getLogger(MethodCallNode.class.getName()).log(Level.SEVERE, null, ex);
         }
         return method;

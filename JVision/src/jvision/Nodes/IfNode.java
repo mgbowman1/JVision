@@ -1,11 +1,19 @@
 package jvision.Nodes;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jvision.Exceptions.NodeDoesNotExistException;
 import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 
+/**
+ *
+ * @author Michael
+ * @see Node
+ * 
+ * This is the conditional Node.
+ * This is used for all if statements.
+ * It evaluates a given LogicalNode and executes the necessary code a single time if necessary.
+ * It also contains all else if instructions as well as else instructions and executes the appropriately.
+ */
 public class IfNode extends Node {
 
     public IfNode(LogicNode condition, NodeList<IfNode> elseIfNodes, Node elseNode, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {
@@ -42,10 +50,10 @@ public class IfNode extends Node {
     @Override
     public Node execute() {
         super.execute();
-        if (!condition.isExecuted()) return condition;
+        if (!condition.isExecuted()) return condition; //ensure that the condition has been checked
         else {
-            if (condition.isReturned()) {
-                if (super.getChildNode() != null) return super.getChildNode();
+            if (condition.isReturned()) { //if the condition result is true
+                if (super.getChildNode() != null) return super.getChildNode(); //if there is a child node to execute otherwise if this is an else if/else statement otherwise just return the next node
                 else if (elseType) {
                     IfNode current = (IfNode)super.getParentNode();
                     while (current.isElseType()) current = (IfNode)super.getParentNode();
@@ -53,13 +61,13 @@ public class IfNode extends Node {
                 }
                 else return super.getNextNode();
             }
-            else if (elseIfNodes.getSize() > 0) {
+            else if (elseIfNodes.getSize() > 0) { //if the condition is false but there are else if commands
                 return elseIfNodes.get(0);
             }
-            else if (elseNode != null) return elseNode;
-            else if (elseType) {
+            else if (elseNode != null) return elseNode; //if there is an else command
+            else if (elseType) { //if this is an else if/else
                 if (super.getNextNode() != null) return super.getNextNode();
-                else {
+                else { //find the final parent if statement
                     IfNode current = (IfNode)super.getParentNode();
                     if (current.getElseNode() != null) return current.getElseNode();
                     else {

@@ -1,5 +1,12 @@
 package jvision.Nodes;
 
+/**
+ *
+ * @author Michael
+ * @see Node
+ * 
+ * This Node is used whenever an exception is needed.
+ */
 public class ExceptionNode extends Node {
 
     public ExceptionNode(String exceptionName, String message, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {

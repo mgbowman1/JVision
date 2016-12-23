@@ -4,7 +4,13 @@ import jvision.Exceptions.NodeDoesNotExistException;
 import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 
-
+/**
+ *
+ * @author Michael
+ * @see Node
+ * 
+ * This Node is used for the creation of methods.
+ */
 public class MethodNode extends Node {
 
     public MethodNode(String privacy, String returnType, NodeList<ExceptionNode> exceptions, NodeList<VariableNode> arguments, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {

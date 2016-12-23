@@ -4,6 +4,14 @@ import jvision.Exceptions.BadArgumentNodeException;
 import jvision.Exceptions.NullNodeException;
 import jvision.Nodes.Node;
 
+/**
+ *
+ * @author Michael
+ * @param <E>
+ * @see Node
+ * 
+ * This class is used to convert a NodeList from one subclass of Node to another.
+ */
 public class NodeListConverter<E extends Node> {
 
     public NodeListConverter() {

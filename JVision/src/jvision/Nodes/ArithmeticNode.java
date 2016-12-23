@@ -8,10 +8,16 @@ import jvision.Exceptions.NodeDoesNotExistException;
 import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 
+/**
+ *
+ * @author Michael
+ * @see Node
+ * 
+ * This Node performs all arithmetic operations including concatenating strings.
+ */
+public class ArithmeticNode extends Node {
 
-public class ArithemeticNode extends Node {
-
-    public ArithemeticNode(NodeList<Node> arguments, LinkedList<String> operations, String returnType, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {
+    public ArithmeticNode(NodeList<Node> arguments, LinkedList<String> operations, String returnType, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {
         super(name, previousNode, nextNode, childNode, parentNode, xPos, yPos, xSize, ySize, xAreaSize, yAreaSize, comment);
         this.arguments = arguments;
         this.operations = operations;
@@ -64,7 +70,7 @@ public class ArithemeticNode extends Node {
             }
             returned = value.toString();
         } catch (BadArgumentNodeException | CloneNotSupportedException ex) {
-            Logger.getLogger(ArithemeticNode.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ArithmeticNode.class.getName()).log(Level.SEVERE, null, ex);
         }
         return super.getNextNode();
     }

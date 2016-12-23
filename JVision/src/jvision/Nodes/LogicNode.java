@@ -1,12 +1,19 @@
 package jvision.Nodes;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import jvision.Exceptions.NodeDoesNotExistException;
 import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 
-
+/**
+ *
+ * @author Michael
+ * @see Node
+ * @see BooleanNode
+ * 
+ * This Node is used as the parent class for all boolean operations.
+ * It can contain BooleanNodes within it to do smaller boolean operations
+ */
 public class LogicNode extends Node {
 
     public LogicNode(NodeList<BooleanNode> checks, LinkedList<String> operations, boolean not, String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {
@@ -33,13 +40,13 @@ public class LogicNode extends Node {
     public Node execute() {
         super.execute();
         BooleanNode current = checks.get(0);
-        while (current != null) {
+        while (current != null) { //ensure that all boolean operations involving comparisons are completed
             if (!current.isExecuted()) return current;
             current = (BooleanNode)current.getNextNode();
         }
         current = checks.get(1);
         boolean bool = checks.get(0).isReturned();
-        for (String s : operations) {
+        for (String s : operations) { //do boolean operations involving logical operations
             switch (s) {
                 case "&&":
                     bool = bool && current.isReturned();
@@ -50,7 +57,7 @@ public class LogicNode extends Node {
             }
             current = (BooleanNode)current.getNextNode();
         }
-        if (not) bool = !bool;
+        if (not) bool = !bool; //invert the result if the not variable is set
         returned = bool;
         return super.getNextNode();
     }

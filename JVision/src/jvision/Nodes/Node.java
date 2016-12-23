@@ -5,6 +5,15 @@ import jvision.Exceptions.NodeDoesNotExistException;
 import jvision.Exceptions.NullNodeException;
 import jvision.NodeList;
 
+/**
+ *
+ * @author Michael
+ * 
+ * This is the abstract Node class that is extended by all other Node classes.
+ * The basic function of the Node is to be the device by which all Java instructions are created.
+ * The setVars method, and associated methods, are generally used in the case of changes to a MethodNodes arguments.
+ * Since most of this program is based off of references to other Nodes, the instances of the old VariableNodes need to be changed to instances of the new VariableNodes for all Nodes inside of the method.
+ */
 public abstract class Node implements Cloneable {
 
     public Node(String name, Node previousNode, Node nextNode, Node childNode, Node parentNode, int xPos, int yPos, int xSize, int ySize, int xAreaSize, int yAreaSize, String comment) {
@@ -128,10 +137,10 @@ public abstract class Node implements Cloneable {
     
     @Override
     public Node clone() throws CloneNotSupportedException {
-        return (Node)super.clone();
+        return (Node)super.clone(); //returns a clone of the current instance so that the receiver obtains a copy of this instance, but not this actual instance.  Note: the copy still references the same instances as this one
     }
     
-    public VariableNode getVariable(Node current) throws BadArgumentNodeException, CloneNotSupportedException {
+    public VariableNode getVariable(Node current) throws BadArgumentNodeException, CloneNotSupportedException { //returns a VariableNode containing the value of the given Node.  For use when the value is needed for some other operation
         VariableNode temp = copyToVariableNode(current);
         if (current instanceof ClassNode) {
             temp.setType("class");
@@ -145,23 +154,23 @@ public abstract class Node implements Cloneable {
         } else if (current instanceof LogicNode) {
             temp.setType("boolean");
             temp.setValue(((LogicNode)current).isReturned());
-        } else if (current instanceof ArithemeticNode) {
-            temp.setType(((ArithemeticNode)current).getReturnType());
-            temp.setValue(((ArithemeticNode)current).getReturned());
+        } else if (current instanceof ArithmeticNode) {
+            temp.setType(((ArithmeticNode)current).getReturnType());
+            temp.setValue(((ArithmeticNode)current).getReturned());
         } else throw new BadArgumentNodeException();
         return temp;
     }
     
-    private VariableNode copyToVariableNode(Node n) {
+    private VariableNode copyToVariableNode(Node n) { //returns a VariableNode containing all the same super properties as the given Node
         return new VariableNode("", null, n.getName(), n.getPreviousNode(), n.getNextNode(), n.getChildNode(), n.getParentNode(), n.getxPos(), n.getyPos(), n.getxSize(), n.getySize(), n.getxAreaSize(), n.getyAreaSize(), n.getComment());
     }
     
-    public Node execute() {
+    public Node execute() { //used for the interpreter.  Executes the necessary instruction for the Node and sets its execution status to true
         executed = true;
         return null;
     }
     
-    public void unExecute() {
+    public void unExecute() { //sets the execution status of the current Node and all child Nodes to false to allow for further execution
         executed = false;
         Node current = childNode;
         while (current != null) {
@@ -170,7 +179,7 @@ public abstract class Node implements Cloneable {
         }
     }
     
-    public void setVars(NodeList<VariableNode> old, NodeList<VariableNode> newer) throws NullNodeException, NodeDoesNotExistException {
+    public void setVars(NodeList<VariableNode> old, NodeList<VariableNode> newer) throws NullNodeException, NodeDoesNotExistException { //sets the VariableNode instances of all child Nodes to newer instances if they need to be changed
         Node current = childNode;
         while (current != null) {
             setVar(old, newer, current);
@@ -178,7 +187,7 @@ public abstract class Node implements Cloneable {
         }
     }
     
-    public void setVarList(NodeList<VariableNode> old, NodeList<VariableNode> newer, NodeList n) throws NullNodeException, NodeDoesNotExistException {
+    public void setVarList(NodeList<VariableNode> old, NodeList<VariableNode> newer, NodeList n) throws NullNodeException, NodeDoesNotExistException { //changes all VariableNodes in the given list to new instances if they are found in the old list
         if (n == null || n.getSize() == 0) return;
         Node current = n.get(0);
         while (current != null) {
@@ -200,7 +209,7 @@ public abstract class Node implements Cloneable {
         }
     }
     
-    public Node setVar(NodeList<VariableNode> old, NodeList<VariableNode> newer, Node n) throws NullNodeException, NodeDoesNotExistException {
+    public Node setVar(NodeList<VariableNode> old, NodeList<VariableNode> newer, Node n) throws NullNodeException, NodeDoesNotExistException { //replaces a singular VariableNode if needed or just calls setVars on another type of Node
         NodeList newList = new NodeList();
         newList.add(n);
         setVarList(old, newer, newList);
